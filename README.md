@@ -22,3 +22,4 @@ sedangkan, untuk menjalankan aplikasi kasir, melalui terminal:
 ./kasir
 ````
 # Kasir
+# Kasir
