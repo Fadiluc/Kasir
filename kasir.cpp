@@ -1,0 +1,91 @@
+#include <iostream>
+#include <iomanip>
+#include <string>
+#include <numeric>
+
+using namespace std;
+
+struct transaksi
+{
+    string namaBarang;
+    int hargaBarang;
+    int jumlahBeli;
+};
+
+void inputPembelian(int jumlahBarang, transaksi pembelian[]){
+    for (size_t i = 0; i < jumlahBarang; i++)
+    {
+       cout << "Masukkan Nama Barang: ";
+       cin >> pembelian[i].namaBarang;
+
+       cout << "Masukkan Harga Barang: ";
+       cin >> pembelian[i].hargaBarang;
+
+       cout << "Masukkan Jumlah Pembelian: ";
+       cin >> pembelian[i].jumlahBeli;
+    }
+    
+}
+
+int tampilkanPembelian(int jumlahBarang, transaksi pembelian[]){
+    int totalHarga;
+     cout << setfill('=') << setw(50) << '=' << endl;
+     cout << "Nama Barang      Harga   Qty Subtotal" << endl;
+     cout << setfill('-') << setw(50) << '-' << endl;
+     int subtotal[jumlahBarang];
+    for (size_t i = 0; i < jumlahBarang; i++)
+     {
+        cout << pembelian[i].namaBarang << "    ";
+        cout << pembelian[i].hargaBarang << "   ";
+        cout << pembelian[i].jumlahBeli << "    ";
+        subtotal[i] = pembelian[i].hargaBarang*pembelian[i].jumlahBeli;
+        cout << subtotal[i] << endl;
+     }
+      cout << setfill('-') << setw(50) << '-' << endl;
+      totalHarga = accumulate(subtotal,subtotal+jumlahBarang,0); 
+      cout << " " << endl;
+      cout << "Total Harga: " << totalHarga << endl;
+
+    return totalHarga;
+}
+
+void pembayaran(int totalHarga){
+   int uangTunai;
+    cout << "Bayar: ";
+    cin >> uangTunai;
+
+    if (uangTunai < totalHarga)
+    {
+      cout << "Uang anda tidak cukup" << endl;
+      return;
+    }
+    cout << "Kembalian Anda: " << uangTunai - totalHarga << endl << endl;
+    cout << "Terimakasih telah berbelanja" << endl;
+}
+
+void headerStruk(){
+    cout << setfill('=') << setw(50) << '=' << endl;
+    cout << "PROGRAM KASIR TOKO" << endl;
+    cout << setfill('=') << setw(50) << '=' << endl;
+}
+
+int main(){
+    int jumlahBarang;
+    
+    // blok kode menampilkan header
+    headerStruk();    
+    
+    // blok kode 1
+    cout << "Masukkan jumlah barang: ";
+    cin >> jumlahBarang;
+     transaksi pembelian[jumlahBarang];
+    inputPembelian(jumlahBarang, pembelian);
+    
+    // blok kode 2
+    int totalHarga = tampilkanPembelian(jumlahBarang, pembelian);
+
+    // blok kode 3
+    pembayaran(totalHarga);
+    
+    return 0;
+}
